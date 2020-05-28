@@ -11,9 +11,11 @@ class BMI:
         return self.weight * self.height
 
 
+Victoria = BMI(176, 69)
 Pit = BMI(180, 80)
 
 print(Pit.bmi_calculation())
+
 
 class Portfolio:
 
@@ -23,6 +25,7 @@ class Portfolio:
 
     def calculat_return(self):
         return (self.tag2 - self.tag1) / self.tag1
+
 
 my_return = Portfolio(100, 110)
 
