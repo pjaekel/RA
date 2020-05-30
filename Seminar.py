@@ -75,17 +75,12 @@ print(weights)
 # - generates three uniformly distributed random numbers betweeen 0 and 1
 # - the sum of all values add up to 1
 
-
 def port_ret(weights):
     return np.sum(rets.mean() * weights) * 252
-
-
 # - defining annualized portfolio return given the portfolio weights
 
 def port_vol(weights):
     return np.sqrt(np.dot(weights.T, np.dot(rets.cov() * 252, weights)))
-
-
 # - defining annualized portfolio volatility given the portfolio weights
 
 prets = []
@@ -139,7 +134,6 @@ bnds = tuple((0, 1) for x in range(noa))
 
 
 equal_weights = np.array(noa * [1. / noa, ])
-equal_weights
 
 # - This is the starting weight of a portfolio for the minimization process. We start our iteration from here.
 
