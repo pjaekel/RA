@@ -1,15 +1,11 @@
-while True:
-    try:
-        risk = str(input("Are you risk avers? "))
-    except ValueError:
-        print("Sorry, I didn't understand that.")
-        continue
-    else:
-        break
-if risk == 'yes':
+
+
+Question1 = str(input("Are you risk avers? "))
+
+if Question1 == 'yes':
     t = 1
-else:
-    t = 0
+else: ValueError
+print('Plase')
 
 while True:
     try:
@@ -49,9 +45,9 @@ while True:
     else:
         break
 if loss == 'yes':
-    r = 1
+    t = 1
 else:
-    r = 0
+    t = 0
 
 final_score = t + s + f
 
