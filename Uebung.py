@@ -8,15 +8,19 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas_datareader as data
 import numpy as np
 import scipy.optimize as sco
-from pylab import plt
+import matplotlib.pyplot as plt
 from pandas.util.testing import assert_frame_equal
+import warnings
+from statistics import mean
+import numpy.random as npr
+import scipy.stats as scs
 
 data = data.DataReader(['ADS.DE', 'ALV.DE', 'BAS.DE', 'BEI.DE', 'BAYN.DE', 'BMW.DE'],
                        'yahoo', start='2017/12/29', end='2020/01/01')['Adj Close']
 data1 = data.std()
-print(data1)
 rets = np.log(data / data.shift(1))
 rets.dropna(inplace=True)
+
 print(rets)
 
 symbols = ['ADS.DE', 'ALV.DE', 'BAS.DE', 'BEI.DE', 'BAYN.DE', 'BMW.DE']
@@ -45,18 +49,16 @@ for p in range(3):
 prets = np.array(prets)
 pvols = np.array(pvols)
 
-print(prets)
 
-S0 = 100
-r = 0.05
-sigma = 0.25
-T = 30 / 365
-I = 100000
+S0 = 10000
+r = 0.0464
+sigma = 0.0439
+T = 1.0
+I = 900000
 
 ST = S0 * np.exp((r - 0.5 * sigma ** 2) * T +
                  sigma * np.sqrt(T) * npr.standard_normal(I))
 
-print(ST)
 R_gbm = np.sort(ST - S0)
 
 percs = [0.01, 0.1, 1., 2.5, 5.0, 10.0]
@@ -66,11 +68,31 @@ print(33 * '-')
 for pair in zip(percs, var):
     print('%16.2f %16.3f' % (100 - pair[0], -pair[1]))
 
-L = 0.5
 
-from sn_random_numbers import *
+sorted_ST = np.sort(ST)
 
-sn = sn_random_numbers((2, 2, 2), antithetic=False,
-                         moment_matching=False, fixed_seed=True)
+plt.plot(sorted_ST)
+plt.show()
 
-print(sn)
+splitted_array = np.split(sorted_ST, 5)
+print(splitted_array)
+
+sehr_gute_entwicklung = []
+sehr_gute_entwicklung.append(splitted_array[4])
+gute_entwicklung = []
+gute_entwicklung.append(splitted_array[3])
+mittlere_entschicklung = []
+mittlere_entschicklung.append(splitted_array[2])
+schlecht_entwicklung = []
+schlecht_entwicklung.append(splitted_array[1])
+sehr_schlecht_entwicklung = []
+sehr_schlecht_entwicklung.append(splitted_array[0])
+
+
+print(np.mean(sehr_gute_entwicklung))
+print(np.mean(gute_entwicklung))
+print(np.mean(mittlere_entschicklung))
+print(np.mean(schlecht_entwicklung))
+print(np.mean(sehr_schlecht_entwicklung))
+
+

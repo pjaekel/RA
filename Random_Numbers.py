@@ -38,7 +38,7 @@ paths[-1].mean()
 print(paths[-1].mean())
 
 plt.figure(figsize=(10, 6))
-plt.plot(paths[:, :100])
+plt.plot(paths[:, :10])
 plt.xlabel('time steps')
 plt.ylabel('index level')
 plt.show()
