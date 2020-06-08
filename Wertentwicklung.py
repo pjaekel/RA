@@ -13,6 +13,7 @@ from statistics import mean
 import numpy.random as npr
 import scipy.stats as scs
 
+
 initial_value = 10000
 log_return = 0.0215
 t = 5
@@ -23,7 +24,6 @@ log_return_net = log_return - c_company - c_etf
 alpha_95 = 1.64
 alpha_50 = 0.00
 alpha_05 = -1.64
-
 
 
 final_value_95 = np.exp(np.log(initial_value) + t*log_return_net + (np.sqrt(t) *sigma*alpha_95))
@@ -38,14 +38,17 @@ print('Schlechte Entwicklung =', final_value_05)
 gute = []
 for t in range(30):
     gute.append(np.exp(np.log(initial_value) + t*log_return_net + (np.sqrt(t) *sigma*alpha_95)))
-
 plt.plot(gute)
-plt.show()
+#plt.show()
 
 mittlere = []
 for t in range(30):
     mittlere.append(np.exp(np.log(initial_value) + t*log_return_net + (np.sqrt(t) *sigma*alpha_50)))
+plt.plot(mittlere)
+#plt.show()
 
 schlechte = []
 for t in range(30):
     schlechte.append(np.exp(np.log(initial_value) + t*log_return_net + (np.sqrt(t) *sigma*alpha_05)))
+plt.plot(schlechte)
+plt.show()
