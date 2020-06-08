@@ -16,3 +16,4 @@ class Rectangle:
 r = Rectangle(160, 120, 1)
 print("Area of Rectangle: %s sq units" % (r.get_area()))
 print("The cost of rectangular field: %r rupees" % (r.calculate_cost()))
+

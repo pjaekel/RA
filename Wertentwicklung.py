@@ -35,22 +35,24 @@ final_value_05 = np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t)
 print('Schlechte Entwicklung =', final_value_05)
 
 gute = []
-for t in range(30):
+for t in range(31):
     gute.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_95)))
-plt.plot(gute)
+# plt.plot(gute)
 # plt.show()
 
 mittlere = []
-for t in range(30):
+for t in range(31):
     mittlere.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_50)))
-plt.plot(mittlere)
+# plt.plot(mittlere)
 # plt.show()
 
 schlechte = []
-for t in range(30):
+for t in range(31):
     schlechte.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_05)))
-plt.plot(schlechte)
-#plt.show()
+
+
+# plt.plot(schlechte)
+# plt.show()
 
 
 class dashboard(object):
@@ -79,12 +81,52 @@ class dashboard(object):
         self.sigma = sigma
         self.alpha_95 = alpha_95
         good = []
-        for t in range(30):
+        for t in range(31):
             good.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_95)))
 
-        return print(good)
+        return good
+
+    def middle_development(self):
+        net_return = self.net_return()
+        self.initial_value = initial_value
+        self.sigma = sigma
+        self.alpha_50 = alpha_50
+        middle = []
+        for t in range(31):
+            middle.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_50)))
+
+        return middle
+
+    def bad_development(self):
+        net_return = self.net_return()
+        self.initial_value = initial_value
+        self.sigma = sigma
+        self.alpha_05 = alpha_05
+        bad = []
+        for t in range(31):
+            bad.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_05)))
+
+        return bad
 
 
-test = dashboard(10000, 0.0215, 0.0186, 30, 1.64, 0.0075, 0.0019)
+good = dashboard(10000, 0.0215, 0.0186, 31, 1.64, 0.0075, 0.0019)
+middle = dashboard(10000, 0.0215, 0.0186, 31, 0.00, 0.0075, 0.0019)
+bad = dashboard(10000, 0.0215, 0.0186, 31, -1.64, 0.0075, 0.0019)
 
-test.good_development()
+
+good_plot = good.good_development()
+middle_plot = middle.middle_development()
+bad_plot = bad.bad_development()
+print(bad_plot)
+print(middle_plot)
+print(good_plot)
+
+
+fig, ax = plt.subplots()
+ax.set_xlabel('Years')
+ax.plot(good_plot, color='blue')
+ax.plot(middle_plot, color='red')
+ax.plot(bad_plot, color='black')
+ax.grid(True)
+plt.ylabel('Portfolio Value')
+plt.show()
