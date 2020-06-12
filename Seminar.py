@@ -58,7 +58,7 @@ symbols = ['ADS.DE', 'ALV.DE', 'BAS.DE', 'BEI.DE', 'BAYN.DE', 'BMW.DE',
            'HEN3.DE', 'IFX.DE', 'LIN.DE', 'MRK.DE', 'MTX.DE', 'MUV2.DE',
            'RWE.DE', 'SAP.DE', 'SIE.DE', 'VOW3.DE', 'VNA.DE', 'WDI.DE']
 
-# - using 3 financial instruments for portfolio composition.
+# - using 30 financial instruments for portfolio composition.
 
 noa = len(symbols)
 
