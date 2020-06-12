@@ -19,7 +19,6 @@ inital_investment = 100
 d = inital_investment * rets
 #print(d)
 std = rets.std()
-
 #print(std)
 #print(np.sqrt((variance)))
 volatility = np.sqrt(rets.var()) * np.sqrt(251)
