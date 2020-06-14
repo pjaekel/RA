@@ -9,23 +9,27 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import scipy.stats as scs
 
-data = data.DataReader(['AAPL'],
-                        'yahoo', start='2020/01/01', end='2020/06/11')['Adj Close']
+data = data.DataReader(['XDJP.DE'],
+                        'yahoo', start='2019/06/11', end='2020/06/11')['Adj Close']
 
-
-rets = np.log(data / data.shift(1))
+data.plot()
 
 inital_investment = 100
+
+rets = data.pct_change()
+yearly_rets = np.sum(rets.mean()) * np.sqrt(252)
+print(yearly_rets)
 d = inital_investment * rets
 #print(d)
 std = rets.std()
+rets.plot()
 #print(std)
 #print(np.sqrt((variance)))
 volatility = np.sqrt(rets.var()) * np.sqrt(251)
 print(volatility)
 print(np.sum(rets.mean()) * 251)
 
-r = 0.05
+
 
 percs = np.array([0.01, 0.1, 1.0, 2.5, 5.0, 10.0])
 
