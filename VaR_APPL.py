@@ -39,7 +39,7 @@ noa = len(symbols)
 # - len() function returns the number of items in an object, here 3
 
 
-weights = [0.18, 0.025, 0.025, 0.77]
+weights = [0.18, 0.025, 0.325, 0.47]
 weights /= np.sum(weights)
 
 print(weights)
@@ -55,7 +55,7 @@ def port_vol(weights):
 prets = []
 pvols = []
 for p in range(1):
-    weights = [0.18, 0.025, 0.025, 0.77]
+    weights = [0.18, 0.025, 0.325, 0.47]
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
@@ -69,10 +69,10 @@ portfolio_vol = pvols.item()
 print(portfolio_vol)
 
 t = 252
-ci = 1.64
+confidence_interval = 1.64
 portfolio_value = 1000000
 
-var_portfolio = portfolio_value*ci*portfolio_vol*np.sqrt(t/252)
+var_portfolio = portfolio_value*confidence_interval*portfolio_vol*np.sqrt(t/252)
 print(var_portfolio)
 
 var_percent = (var_portfolio/portfolio_value)*100
@@ -81,7 +81,29 @@ print("The Value at risk for this Portfolio =", var_percent, "%")
 
 
 
+class Value_at_Risk(object):
+
+    def __init__(self, portfolio_value, confidence_interval, portfolio_vol, t):
+        self.portfolio_value = portfolio_value
+        self.confidence_interval = confidence_interval
+        self.portfolio_vol = portfolio_vol
+        self.t = t
+
+    def Var_Portfolio(self):
+        self.portfolio_value = portfolio_value
+        self.confidence_interval = confidence_interval
+        self.portfolio_vol = portfolio_vol
+        self.t = t
+
+        return self.portfolio_value*self.confidence_interval*self.portfolio_vol*np.sqrt(self.t/252)
+
+
+portfolio_1 = Value_at_Risk(1000000, 1.64, 0.15383843827689053, 252)
+
+print(portfolio_1.Var_Portfolio())
+
 '''
+
 data = data.DataReader(['AAPL', 'NKE', 'GLD', 'PYPL', 'TSLA'], 'yahoo', start='2000/01/01', end='2018/12/31')['Close']
 rets = np.log(data / data.shift(1))
 cov_matrix = data.pct_change().apply(lambda x: np.log(1+x)).cov()
