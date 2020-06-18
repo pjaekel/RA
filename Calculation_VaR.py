@@ -4,13 +4,15 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas_datareader as data
 import numpy as np
 
+from pylab import plt
 
-data = data.DataReader(['XDJP.DE', 'LCVB.DE', 'XQUE.DE', 'XAAG.DE'],
+
+data = data.DataReader(['XQUE.DE'],
                        'yahoo', start='2017/08/01', end='2018/12/31')['Adj Close']
 
 print(data)
 data.pct_change().mean()
-
+plt.plot(data)
 
 rets = np.log(data / data.shift(1))
 
@@ -22,6 +24,7 @@ print(rets.corr())
 
 rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(20, 12))
 
+
 # - Shows the cumulative log returns over time in 1 month intervals.
 
 # - cumsum() function is used when we want to compute the cumulative sum of array elements over a given axis
@@ -29,7 +32,7 @@ rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(2
 # #  Monte Carlo Simulation
 
 
-symbols = ['XDJP.DE', 'LCVB.DE', 'XQUE.DE', 'XAAG.DE']
+symbols = ['XQUE.DE']
 
 # - using 30 financial instruments for portfolio composition.
 
@@ -38,8 +41,7 @@ noa = len(symbols)
 # - Defining the number of financial instruments
 # - len() function returns the number of items in an object, here 3
 
-
-weights = [0.18, 0.025, 0.525, 0.27]
+weights = [1]
 weights /= np.sum(weights)
 
 print(weights)
@@ -54,23 +56,25 @@ def port_vol(weights):
 
 prets = []
 pvols = []
-for p in range(1):
-    weights = [0.18, 0.025, 0.525, 0.27]
-    weights /= np.sum(weights)
-    prets.append(port_ret(weights))
-    pvols.append(port_vol(weights))
+#for p in range(1):
+weights = [1]
+weights /= np.sum(weights)
+prets.append(port_ret(weights))
+pvols.append(port_vol(weights))
 prets = np.array(prets)
 pvols = np.array(pvols)
 
-print(prets)
-print(pvols)
+
+print("The Portfolio Return is =", prets)
+print("The Portfolio Volatility is =", pvols)
 
 portfolio_vol = pvols.item()
+
 print(portfolio_vol)
 
-t = 252
+t = 1
 confidence_interval = 1.64
-portfolio_value = 1000000
+portfolio_value = 100
 
 var_portfolio = portfolio_value*confidence_interval*portfolio_vol*np.sqrt(t/252)
 print(var_portfolio)
@@ -98,7 +102,10 @@ class Value_at_Risk(object):
         return self.portfolio_value*self.confidence_interval*self.portfolio_vol*np.sqrt(self.t/252)
 
 
-portfolio_1 = Value_at_Risk(1000000, 1.64, 0.15383843827689053, 252)
+
+print('Hallo')
+
+portfolio_1 = Value_at_Risk(1000, 1.64, 0.0983, 252)
 
 print(portfolio_1.Var_Portfolio())
 

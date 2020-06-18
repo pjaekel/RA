@@ -9,7 +9,7 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import scipy.stats as scs
 
-data = data.DataReader(['XDJP.DE'],
+data = data.DataReader(['XDJP.DE', 'LCVB.DE', 'XQUE.DE', 'XAAG.DE'],
                         'yahoo', start='2019/06/11', end='2020/06/11')['Adj Close']
 
 data.plot()
