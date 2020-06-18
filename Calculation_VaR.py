@@ -39,7 +39,7 @@ noa = len(symbols)
 # - len() function returns the number of items in an object, here 3
 
 
-weights = [0.18, 0.025, 0.325, 0.47]
+weights = [0.18, 0.025, 0.525, 0.27]
 weights /= np.sum(weights)
 
 print(weights)
@@ -55,7 +55,7 @@ def port_vol(weights):
 prets = []
 pvols = []
 for p in range(1):
-    weights = [0.18, 0.025, 0.325, 0.47]
+    weights = [0.18, 0.025, 0.525, 0.27]
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
