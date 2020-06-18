@@ -7,8 +7,8 @@ import numpy as np
 from pylab import plt
 
 
-data = data.DataReader(['XQUE.DE'],
-                       'yahoo', start='2017/08/01', end='2018/12/31')['Adj Close']
+data = data.DataReader(['FB'],
+                       'yahoo', start='2012/01/01', end='2018/12/31')['Adj Close']
 
 print(data)
 data.pct_change().mean()
@@ -32,7 +32,7 @@ rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(2
 # #  Monte Carlo Simulation
 
 
-symbols = ['XQUE.DE']
+symbols = ['FB']
 
 # - using 30 financial instruments for portfolio composition.
 
@@ -72,7 +72,7 @@ portfolio_vol = pvols.item()
 
 print(portfolio_vol)
 
-t = 1
+t = 20
 confidence_interval = 1.64
 portfolio_value = 100
 
