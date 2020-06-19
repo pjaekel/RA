@@ -10,10 +10,10 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import scipy
 
-data = data.DataReader(['FB'],
+data = data.DataReader(['EXV6.DE'],
                        'yahoo', start='2012/01/01', end='2018/12/31')['Adj Close']
 
-symbols = ['FB']
+symbols = ['EXV6.DE']
 noa = len(symbols)
 weights = np.random.random(noa)
 weights /= np.sum(weights)
