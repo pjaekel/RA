@@ -3,12 +3,14 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import pandas_datareader as data
 import numpy as np
+import pandas as pd
 
 from pylab import plt
 
 
-data = data.DataReader(['EXV6.DE','EXI5.DE', 'T3KE.DE', 'EXXT.DE','EL49.DE', 'EXHA.DE'],
-                       'yahoo', start='2018/01/01', end='2020/06/15')['Adj Close']
+data = pd.read_excel('DatenSIX.xlsx', sheet_name = 'Gesamt', index_col='Datum')
+data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV1', 'EXV6', 'EXI5', 'ELFC', 'WTDP', 'EXXT', 'EXX7']
+print(data)
 
 print(data)
 data.pct_change().mean()
@@ -17,19 +19,18 @@ plt.plot(data)
 rets = np.log(data / data.shift(1))
 
 rets.corr()
-
 print(rets.corr())
 
 
 rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(20, 12))
 
 
-symbols = ['EXV6.DE','EXI5.DE', 'EXXT.DE','EL49.DE', 'EXHA.DE']
+symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV1', 'EXV6', 'EXI5', 'ELFC', 'WTDP', 'EXXT', 'EXX7']
 
 noa = len(symbols)
 
 
-weights = [0.3, 0.2, 0.3, 0.1, 0.1]
+weights = [0.0, 0.0, 0.0, 0.3, 0.6, 0.0, 0.0, 0.00, 0.00, 0.00, 0.1, 0.00, 0.00]
 weights /= np.sum(weights)
 
 print(weights)
@@ -45,7 +46,7 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-weights = [0.3, 0.2, 0.3, 0.1, 0.1]
+weights = [0.0, 0.0, 0.0, 0.3, 0.6, 0.0, 0.0, 0.00, 0.00, 0.00, 0.1, 0.00, 0.00]
 weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))
