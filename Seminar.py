@@ -3,6 +3,7 @@ import numpy as np
 import scipy.optimize as sco
 from pylab import plt
 from pandas.util.testing import assert_frame_equal
+import pandas as pd
 
 data = data.DataReader(['ADS.DE', 'ALV.DE', 'BAS.DE', 'BEI.DE', 'BAYN.DE', 'BMW.DE',
                         'CON.DE', '1COV.DE', 'DAI.DE', 'DBK.DE', 'DB1.DE', 'LHA.DE',

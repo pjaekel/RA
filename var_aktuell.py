@@ -29,7 +29,7 @@ volatility = np.sqrt(rets.var()) * np.sqrt(251)
 print(volatility)
 print(np.sum(rets.mean()) * 251)
 
-
+print(std)
 
 percs = np.array([0.01, 0.1, 1.0, 2.5, 5.0, 10.0])
 
@@ -42,6 +42,8 @@ def print_var():
         print('%16.2f %16.7f' % (100 - pair[0], -pair[1]))
 
 print_var()
+
+plt.show()
 
 '''
 import pandas_datareader as data
