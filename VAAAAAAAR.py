@@ -17,10 +17,10 @@ def var_cov_var(P, c, mu, sigma):
     return P - P*(alpha + 1)
 
 if __name__ == "__main__":
-    start = datetime.datetime(2010, 1, 1)
-    end = datetime.datetime(2014, 1, 1)
+    start = datetime.datetime(2014, 1, 1)
+    end = datetime.datetime(2020, 1, 1)
 
-    data = data.DataReader("", 'yahoo', start, end)
+    data = data.DataReader("TSLA", 'yahoo', start, end)
     data["rets"] = data["Adj Close"].pct_change()
 
     P = 1e6   # 1,000,000 USD

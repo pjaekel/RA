@@ -24,13 +24,13 @@ plt.show()"""
 symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7','EXV1']
 noa = len(symbols)
 #weights = np.random.random(noa)
-weights = [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.15, 0.05, 0.2, 0.2, 0.05, 0.05]
+weights = [0.05, 0.05, 0.05, 0.45, 0.05, 0.05, 0.15, 0.05, 0.0, 0.0, 0.05, 0.05]
 weights /= np.sum(weights)
 
 initial_investment = 100
 rets = np.log(data / data.shift(1))
 print("rets", rets)
-print(rets.mean())
+
 
 "ANNUAL PORTFOLIO RETURN"
 port_ret_annual = np.sum(rets.mean() * weights) * 252
@@ -42,7 +42,6 @@ print(cov_matrix)
 
 
 avg_rets = rets.mean()
-
 print("Average rest", avg_rets)
 
 port_mean = avg_rets.dot(weights)
