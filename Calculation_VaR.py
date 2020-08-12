@@ -26,7 +26,7 @@ symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC
 noa = len(symbols)
 
 
-weights = [0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+weights =  [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
 weights /= np.sum(weights)
 
 print(weights)
@@ -42,7 +42,7 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-weights = [0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+weights = [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
 weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))
@@ -61,7 +61,7 @@ t = 252
 confidence_interval = 1.64
 portfolio_value = 100
 
-var_portfolio = portfolio_value*confidence_interval*portfolio_vol*np.sqrt(t/252)
+var_portfolio = (portfolio_value*confidence_interval)*(portfolio_vol*np.sqrt(t/252))
 print(var_portfolio)
 
 var_percent = (var_portfolio/portfolio_value)*100

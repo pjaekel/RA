@@ -9,27 +9,33 @@ from itertools import combinations
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import scipy
+import seaborn as sns
 
 data = pd.read_excel('Daten_SIX_V2.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7', 'EXV1']
+data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7','EXV1']
 
-"""data.plot()
-plt.legend()
-plt.title('Stock Prices over Time')
-plt.xlabel('Date')
-plt.ylabel('Stock Price')
-plt.show()"""
 
-#print(data)
+
+print(data)
 symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7','EXV1']
+
+''' A-EU(600), A-EU-DAX, A-EU(50), SA-D, SA-D, UA, RS, IMMO-EU, Financial(50), A-USA, A-Japan, Financial(600) '''
+
 noa = len(symbols)
 #weights = np.random.random(noa)
-weights = [0.05, 0.05, 0.05, 0.45, 0.05, 0.05, 0.15, 0.05, 0.0, 0.0, 0.05, 0.05]
+weights = [0.1,	0.1,	0.1,	0.0505,	0.05,	0.05,	0.15,	0.05,	0.1,	0.1495,	0.05,	0.05]
 weights /= np.sum(weights)
 
 initial_investment = 100
 rets = np.log(data / data.shift(1))
 print("rets", rets)
+
+
+'''sorted = rets.sort_values(by=['^GSPC'], ascending=True)
+
+rets.plot.hist(bins=10, alpha=1, grid=True, density=True)
+plt.axvline(color='r', )
+plt.show()'''
 
 
 "ANNUAL PORTFOLIO RETURN"
@@ -72,10 +78,10 @@ var_array = []
 
 num_days = 252
 
-for x in range(1, num_days + 1):
-    var_array.append(np.round(var_1d1 * np.sqrt(x), 2))
+#for x in range(1, num_days + 1):
+var_array.append(np.round(var_1d1 * np.sqrt(252), 2))
 
-    print(str(x) + " day VaR @ 95% confidence: " + str(np.round(var_1d1 * np.sqrt(x), 5)))
+print(str(252) + " day VaR @ 95% confidence: " + str(np.round(var_1d1 * np.sqrt(252), 5)))
 
 plt.xlabel("Day #")
 
@@ -92,6 +98,6 @@ x = np.linspace(port_mean - 3 * port_stdev, port_mean + 3 * port_stdev, 100)
 
 plt.plot(x, scipy.stats.norm.pdf(x, port_mean, port_stdev), "r")
 
-#plt.title("Facebook returns (binned) vs. normal distribution")
+plt.title("VaR")
 
 #plt.show()
