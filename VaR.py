@@ -12,14 +12,14 @@ import scipy
 import seaborn as sns
 
 data = pd.read_excel('Daten_SIX_V2.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7','EXV1']
+data.columns = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
 
 
 print(data)
-symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7','EXV1']
+symbols = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
-''' A-EU(600), A-EU-DAX, A-EU(50), SA-D, SA-D, UA, RS, IMMO-EU, Financial(50), A-USA, A-Japan, Financial(600) '''
+''' SA-D, SA-D, UA, A-EU(600), A-EU(50), A-EU-DAX, A-USA, A-Japan, Financial(600), Financial(50), IMMO-EU	RS '''
 
 noa = len(symbols)
 #weights = np.random.random(noa)
