@@ -9,9 +9,8 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import scipy.stats as scs
 
-data = data.DataReader(['XDJP.DE', 'LCVB.DE', 'XQUE.DE', 'XAAG.DE'],
-                        'yahoo', start='2019/06/11', end='2020/06/11')['Adj Close']
-
+data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 data.plot()
 
 inital_investment = 100

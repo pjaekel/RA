@@ -8,9 +8,12 @@ import pandas as pd
 from pylab import plt
 
 
-data = pd.read_excel('Daten_SIX_V1.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
-print(data)
+#data = pd.read_excel('Daten_SIX_V1.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+#data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
+#print(data)
+
+data = data.DataReader(['^GSPC'],
+                       'yahoo', start='2019/01/01', end='2019/12/31')['Adj Close']
 
 data.pct_change().mean()
 plt.plot(data)
@@ -21,12 +24,13 @@ rets.corr()
 
 rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(20, 12))
 
-symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
-
+#symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
+symbols = ['^GSPC']
 noa = len(symbols)
 
 
-weights =  [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
+#weights =  [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
+weights =  [1]
 weights /= np.sum(weights)
 
 print(weights)
@@ -42,12 +46,14 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-weights = [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
+#weights = [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
+weights = [1]
 weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))
 prets = np.array(prets)
 pvols = np.array(pvols)
+
 
 print(weights)
 print("The Portfolio Return is =", prets)

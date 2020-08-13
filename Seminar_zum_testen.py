@@ -5,8 +5,8 @@ from pylab import plt
 from pandas.util.testing import assert_frame_equal
 import pandas as pd
 
-data = pd.read_excel('Daten_SIX_V1.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
+data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
 print(data)
 data.plot()
@@ -22,6 +22,8 @@ plt.ylabel('Mean of Returns', size=20)
 plt.title('Figure 2', size=25)
 
 rets = np.log(data / data.shift(1))
+
+print(rets)
 
 rets.plot(figsize=(40, 16))
 plt.legend(prop={"size": 20})
@@ -49,7 +51,7 @@ plt.title('Figure 4', size=25)
 # #  Monte Carlo Simulation
 
 
-symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
+symbols = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
 # - using 30 financial instruments for portfolio composition.
 

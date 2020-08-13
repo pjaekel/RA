@@ -14,8 +14,9 @@ def simulate_stock(mean, sigma):
 
 
 plt.figure(figsize=(10, 10))
-for _ in range(10):
-    simulate_stock(mean=0.005, sigma=0.1)
-    simulate_stock(mean=-0.005, sigma=0.01)
+for _ in range(100):
+    simulate_stock(mean=0.0005, sigma=0.15)
+    #simulate_stock(mean=-0.005, sigma=0.01)
 
 plt.show()
+
