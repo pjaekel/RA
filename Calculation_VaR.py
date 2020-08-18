@@ -8,12 +8,11 @@ import pandas as pd
 from pylab import plt
 
 
-#data = pd.read_excel('Daten_SIX_V1.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-#data.columns = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
-#print(data)
+data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA','EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
-data = data.DataReader(['^GSPC'],
-                       'yahoo', start='2019/01/01', end='2019/12/31')['Adj Close']
+#data = data.DataReader(['^GSPC'],
+                       #'yahoo', start='2019/01/01', end='2019/12/31')['Adj Close']
 
 data.pct_change().mean()
 plt.plot(data)
@@ -24,13 +23,13 @@ rets.corr()
 
 rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(20, 12))
 
-#symbols = ['EXSA', 'EXS1', 'EXW1', 'EXHA', 'EXVM', 'EL49', 'EXV6', 'EXI5', 'ELFC', 'EXXT', 'EXX7']
-symbols = ['^GSPC']
+symbols = ['EXHA','EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+#symbols = ['^GSPC']
 noa = len(symbols)
 
 
-#weights =  [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
-weights =  [1]
+weights =  [0.25191441, 0.03577533, 0.04917984, 0.01488581,0.08933691, 0.06884496, 0.04755905, 0.05613023, 0.13590928, 0.13522584, 0.09467556, 0.02056277]
+#weights =  [1]
 weights /= np.sum(weights)
 
 print(weights)
@@ -46,8 +45,8 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-#weights = [0.0, 0.0, 0.0, 0.5, 0.45, 0.0, 0.05, 0., 0.0, 0.0, 0.0]
-weights = [1]
+weights = [0.25191441, 0.03577533, 0.04917984, 0.01488581,0.08933691, 0.06884496, 0.04755905, 0.05613023, 0.13590928, 0.13522584, 0.09467556, 0.02056277]
+#weights = [1]
 weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))

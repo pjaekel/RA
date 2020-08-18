@@ -11,16 +11,16 @@ import matplotlib.pyplot as plt
 import scipy
 import seaborn as sns
 
-#data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-#data.columns = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA','EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
 
-data = data.DataReader(['VOW.DE'],
-                       'yahoo', start='2008/08/27', end='2009/08/25')['Adj Close']
+#data = data.DataReader(['VOW.DE'],
+                      # 'yahoo', start='2019/08/19', end='2020/08/17')['Adj Close']
 
 
 #print(data)
-#symbols = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
-symbols = ['VOW.DE']
+symbols = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+#symbols = ['VOW.DE']
 
 ''' SA-D, SA-D, UA, A-EU(600), A-EU(50), A-EU-DAX, A-USA, A-Japan, Financial(600), Financial(50), IMMO-EU	RS '''
 
@@ -29,12 +29,11 @@ rets = np.log(data / data.shift(1))
 print("rets", rets)
 
 
-'''
-noa = len(symbols)
+#noa = len(symbols)
 #weights = np.random.random(noa)
-weights = [0.025,  0.025, 0.1,   0.1,   0.1,   0.1,   0.11,  0.1,   0.1,   0.1,   0.9,   0.05]
+#weights = [0.0881, 0.0743, 0.0920, 0.0328, 0.1065, 0.1560, 0.0427, 0.0944, 0.1074, 0.0043, 0.0893, 0.1122]
 #weights = [1]
-weights /= np.sum(weights)
+#weights /= np.sum(weights)
 
 def port_ret(weights):
     return np.sum(rets.mean() * weights) * 252
@@ -47,15 +46,16 @@ def port_vol(weights):
 prets = []
 pvols = []
 for p in range(1):
-    weights = np.random.random(noa)
+    #weights = np.random.random(noa)
+    weights = [0.15191441, 0.03577533, 0.04917984, 0.01488581,0.08933691, 0.06884496, 0.04755905, 0.05613023, 0.13590928, 0.13522584, 0.09467556, 0.12056277]
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
 prets = np.array(prets)
 pvols = np.array(pvols)
 
+'''
 print(prets)
-
 clean_rets = rets.dropna()
 print(clean_rets)
 
@@ -72,10 +72,11 @@ plt.hist(flattened, bins=100, density=True, alpha=0.5)
 plt.axvline(color='r', x= np.percentile(flattened,5))
 plt.show()
 '''
-weights = 1
+
+#weights = 1
 
 
-sorted_0 = rets.sort_values(by=['VOW.DE'], ascending=True)
+sorted_0 = rets.sort_values(by=['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6'], ascending=True)
 sorted_1 = sorted_0.dropna()
 sorted_list = sorted_1.values.tolist()
 
@@ -96,7 +97,8 @@ print(np.sum(rets.mean() * weights) * 252)
 # - defining annualized portfolio return given the portfolio weights
 
 
-print(np.sqrt(np.dot(weights, np.dot(rets.cov(), weights))))
+#print(np.sqrt(np.dot(weights, np.dot(rets.cov(), weights))))
+print(np.sqrt(np.dot(weights.T, np.dot(rets.cov() * 252, weights))))
 # - defining annualized portfolio volatility given the portfolio weights
 
 

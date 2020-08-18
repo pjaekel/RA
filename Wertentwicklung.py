@@ -16,9 +16,9 @@ import scipy.stats as scs
 
 
 
-initial_value = 10000
-log_return = 0.0215
-t = 5
+initial_value = 48000
+log_return = 0.09
+t = 40
 sigma = 0.0186
 c_company = 0.0075
 c_etf = 0.0019
@@ -38,19 +38,19 @@ final_value_05 = np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t)
 print('Schlechte Entwicklung =', final_value_05)
 
 gute = []
-for t in range(31):
+for t in range(41):
     gute.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_95)))
 # plt.plot(gute)
 # plt.show()
 
 mittlere = []
-for t in range(31):
+for t in range(41):
     mittlere.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_50)))
 # plt.plot(mittlere)
 # plt.show()
 
 schlechte = []
-for t in range(31):
+for t in range(41):
     schlechte.append(np.exp(np.log(initial_value) + t * log_return_net + (np.sqrt(t) * sigma * alpha_05)))
 
 
@@ -84,7 +84,7 @@ class dashboard(object):
         self.sigma = sigma
         self.alpha_95 = alpha_95
         good = []
-        for t in range(31):
+        for t in range(41):
             good.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_95)))
 
         return good
@@ -95,7 +95,7 @@ class dashboard(object):
         self.sigma = sigma
         self.alpha_50 = alpha_50
         middle = []
-        for t in range(31):
+        for t in range(41):
             middle.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_50)))
 
         return middle
@@ -106,15 +106,15 @@ class dashboard(object):
         self.sigma = sigma
         self.alpha_05 = alpha_05
         bad = []
-        for t in range(31):
+        for t in range(41):
             bad.append(np.exp(np.log(initial_value) + t * net_return + (np.sqrt(t) * sigma * alpha_05)))
 
         return bad
 
 
-good = dashboard(10000, 0.0215, 0.0186, 31, 1.64, 0.0075, 0.0019)
-middle = dashboard(10000, 0.0215, 0.0186, 31, 0.00, 0.0075, 0.0019)
-bad = dashboard(10000, 0.0215, 0.0186, 31, -1.64, 0.0075, 0.0019)
+good = dashboard(10000, 0.0215, 0.0186, 41, 1.64, 0.0075, 0.0019)
+middle = dashboard(10000, 0.0215, 0.0186, 41, 0.00, 0.0075, 0.0019)
+bad = dashboard(10000, 0.0215, 0.0186, 41, -1.64, 0.0075, 0.0019)
 
 
 good_plot = good.good_development()

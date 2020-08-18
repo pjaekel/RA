@@ -12,13 +12,12 @@ data = data.DataReader(['ADS.DE', 'ALV.DE', 'BAS.DE', 'BEI.DE', 'BAYN.DE', 'BMW.
                         'RWE.DE', 'SAP.DE', 'SIE.DE', 'VOW3.DE', 'VNA.DE', 'WDI.DE'],
                        'yahoo', start='2019/01/01', end='2019/12/31')['Adj Close']
 
-print(data)
 data.plot()
 plt.legend()
 plt.title('Stock Prices over Time')
 plt.xlabel('Date')
 plt.ylabel('Stock Price')
-plt.show()
+#plt.show()
 
 data.pct_change().mean().plot(kind='bar', figsize=(20, 12), color=['silver', 'green', 'blue'])
 plt.xlabel('Stocks', size=20)
@@ -32,11 +31,11 @@ plt.legend(prop={"size": 20})
 plt.xlabel('Date', size=20)
 plt.ylabel('Log Returns', size=20)
 plt.title('Figure 3', size=25)
-plt.show()
+#plt.show()
 
 rets.corr()
 
-print(rets.corr())
+#print(rets.corr())
 
 # - Correlation between asset returns of portolio
 
@@ -70,7 +69,7 @@ noa = len(symbols)
 weights = np.random.random(noa)
 weights /= np.sum(weights)
 
-print(weights)
+#print(weights)
 
 
 # - generates three uniformly distributed random numbers betweeen 0 and 1
@@ -86,7 +85,7 @@ def port_vol(weights):
 
 prets = []
 pvols = []
-for p in range(500):
+for p in range(1):
     weights = np.random.random(noa)
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
@@ -94,7 +93,7 @@ for p in range(500):
 prets = np.array(prets)
 pvols = np.array(pvols)
 
-print(prets)
+#print(prets)
 # Monte Carlo simulation of portfolio weights:
 # With the for loop a given number of portfolios (50000) with different weights is created. We then store the
 # portfolio returns and the portfolio volatilities into the following arrays:
@@ -108,7 +107,7 @@ plt.xlabel('Expected Volatility', size=20)
 plt.ylabel('Expected Return', size=20)
 plt.colorbar(label='Sharpe Ratio')
 plt.title('Figure 1', size=25)
-plt.show()
+#plt.show()
 
 
 # - Illustrates the result of the Monte Carlo Simulation
@@ -125,11 +124,14 @@ def min_func_sharpe(weights):
 # - Since the benchmark for the optimal portfolio is the the Sharpe ratio, we define this as our function.
 
 cons = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
+cons
+
 
 # - equality constraints
 
 
 bnds = tuple((0, 1) for x in range(noa))
+bnds
 
 # - bounds for the parameters of x
 
@@ -139,6 +141,7 @@ equal_weights = np.array(noa * [1. / noa, ])
 # - This is the starting weight of a portfolio for the minimization process. We start our iteration from here.
 
 opts = sco.minimize(min_func_sharpe, equal_weights, method='SLSQP', bounds=bnds, constraints=cons)
+#print(opts)
 print(opts)
 
 r_free = 0.002
@@ -148,17 +151,16 @@ ret_opt = port_ret(opts['x']).round(2)
 vol_opt = port_vol(opts['x']).round(2)
 Sharpe = port_ret(opts['x'] - r_free) / port_vol(opts['x'])
 
-print(weights)
+'''print(weights)
 print(ret_opt)
 print(vol_opt)
-print(Sharpe)
+print(Sharpe)'''
 
 # - Optimal Portfolio weights # - Return of the Optimal Portfolio # - Volatility of Optimal Portfolio # - Sharpe 
 # ratio of Optimal Portfolio (- A High Sharpe ratio is good when compared to similar portfolios or funds with lower
 # returns)
 
 optv = sco.minimize(port_vol, equal_weights, method='SLSQP', bounds=bnds, constraints=cons)
-
 # - minimization of portfolio.
 #
 #
@@ -170,10 +172,10 @@ ret_mvp = port_ret(optv['x']).round(2)
 vol_mvp = port_vol(optv['x']).round(2)
 sharpe_mvp = port_ret(optv['x'] - r_free) / port_vol(optv['x'])
 
-print(weights_mvp)
+'''print(weights_mvp)
 print(ret_mvp)
 print(vol_mvp)
-print(sharpe_mvp)
+print(sharpe_mvp)'''
 
 # - Weights of MVP
 # - Return of MVP
@@ -189,7 +191,6 @@ cons = ({'type': 'eq', 'fun': lambda x: port_ret(x) - tret},
 
 
 bnds = tuple((0, 1) for x in weights)
-bnds
 
 # - sets the bounds of the weights between 0 and 1
 
@@ -218,7 +219,7 @@ plt.ylabel('Expected Return', size=20)
 plt.colorbar(label='Sharpe Ratio')
 plt.title('Figure 6', size=25)
 
-plt.show()
+#plt.show()
 
 # - Plotting the all the portfolios in a scatter plot by dividing the random portfolio returns by the assigned
 # portfolio volatilities and plotting it with the matplot function.

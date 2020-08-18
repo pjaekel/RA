@@ -61,10 +61,10 @@ noa = len(symbols)
 # - len() function returns the number of items in an object, here 3
 
 
-weights = np.random.random(noa)
-weights /= np.sum(weights)
+#weights = np.random.random(noa)
+#weights /= np.sum(weights)
 
-print(weights)
+#print(weights)
 
 
 # - generates three uniformly distributed random numbers betweeen 0 and 1
@@ -80,15 +80,17 @@ def port_vol(weights):
 
 prets = []
 pvols = []
-for p in range(500):
+for p in range(1):
     weights = np.random.random(noa)
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
+    print("WWWWWWWWW", weights)
 prets = np.array(prets)
 pvols = np.array(pvols)
 
-print(prets)
+print("RRRRRRRRRRR", prets)
+print("PPPPPPPPPPP", pvols)
 # Monte Carlo simulation of portfolio weights:
 # With the for loop a given number of portfolios (50000) with different weights is created. We then store the
 # portfolio returns and the portfolio volatilities into the following arrays:
@@ -118,11 +120,12 @@ def min_func_sharpe(weights):
 # - Since the benchmark for the optimal portfolio is the the Sharpe ratio, we define this as our function.
 
 cons = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
-
 # - equality constraints
 
 
-bnds = tuple((0, 1) for x in range(noa))
+bnds = tuple((0.0, 1) for x in range(noa))
+
+print("BOUNDS", bnds)
 
 # - bounds for the parameters of x
 
@@ -132,7 +135,7 @@ equal_weights = np.array(noa * [1. / noa, ])
 # - This is the starting weight of a portfolio for the minimization process. We start our iteration from here.
 
 opts = sco.minimize(min_func_sharpe, equal_weights, method='SLSQP', bounds=bnds, constraints=cons)
-print(opts)
+print("OOOOOOOOPTS", opts)
 
 r_free = 0.002
 
