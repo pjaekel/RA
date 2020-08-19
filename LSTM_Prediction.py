@@ -27,8 +27,8 @@ train_data = scaled_data[0:training_data_len, :]
 # Split the data into x_train and y_train data sets
 x_train = []
 y_train = []
-for i in range(60, len(train_data)):
-    x_train.append(train_data[i - 60:i, 0])
+for i in range(200, len(train_data)):
+    x_train.append(train_data[i - 200:i, 0])
     y_train.append(train_data[i, 0])
 
 # Convert x_train and y_train to numpy arrays
@@ -53,14 +53,14 @@ model.fit(x_train, y_train, batch_size=1, epochs=1)
 
 
 # Test data set
-test_data = scaled_data[training_data_len - 60:, :]
+test_data = scaled_data[training_data_len - 200:, :]
 # Create the x_test and y_test data sets
 x_test = []
 y_test = dataset[training_data_len:, :]
 # Get all of the rows from index 1603 to the rest and all of the columns
 # In this case it's only column 'Close'), so 2003 - 1603 = 400 rows of data
-for i in range(60, len(test_data)):
-    x_test.append(test_data[i - 60:i, 0])
+for i in range(200, len(test_data)):
+    x_test.append(test_data[i - 200:i, 0])
 
 # Convert x_test to a numpy array
 x_test = np.array(x_test)

@@ -11,6 +11,7 @@ def simulate_stock(mean, sigma):
         growth_factor = np.random.lognormal(mean=mean, sigma=sigma)
         prices_over_time.append(previous_price * growth_factor)
     plt.plot(prices_over_time)
+    print(prices_over_time)
 
 
 plt.figure(figsize=(10, 10))
