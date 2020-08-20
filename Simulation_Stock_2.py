@@ -11,13 +11,17 @@ start = dt.datetime(2017, 1, 3)
 end = dt.datetime(2017, 11, 20)
 
 prices = web.DataReader('AAPL', 'yahoo', start, end)['Close']
+
+
 returns = prices.pct_change()
 
 last_price = prices[-1]
+print(last_price)
+print(prices)
 
 # Number of Simulations
-num_simulations = 1000
-num_days = 252
+num_simulations = 10
+num_days = 30
 
 simulation_df = pd.DataFrame()
 
@@ -38,6 +42,7 @@ for x in range(num_simulations):
         count += 1
 
     simulation_df[x] = price_series
+    print(simulation_df)
 
 fig = plt.figure()
 fig.suptitle('Monte Carlo Simulation: AAPL')
