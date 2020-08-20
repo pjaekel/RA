@@ -24,7 +24,7 @@ rets = np.log(data / data.shift(1))
 last_price = data["EXHA"].iloc[-1]
 
 
-
+'''
 
 #last_price = prices[-1]
 
@@ -62,8 +62,6 @@ plt.axhline(y=last_price, color='r', linestyle='-')
 plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
+'''
 
-
-#mean = simulation_df.mean(axis=2)
-
-
+#'''mean = simulation_df.mean(axis=2)
