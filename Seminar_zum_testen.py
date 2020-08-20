@@ -6,7 +6,7 @@ from pandas.util.testing import assert_frame_equal
 import pandas as pd
 
 data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+data.columns = ['EXHA',	'EL49',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'ELFC', 'EXI5', 'EXV6']
 
 print(data)
 data.plot()
@@ -15,7 +15,7 @@ plt.title('Stock Prices over Time')
 plt.xlabel('Date')
 plt.ylabel('Stock Price')
 plt.show()
-
+'''
 data.pct_change().mean().plot(kind='bar', figsize=(20, 12), color=['silver', 'green', 'blue'])
 plt.xlabel('Stocks', size=20)
 plt.ylabel('Mean of Returns', size=20)
@@ -236,3 +236,4 @@ plt.show()
 
 # - Hilpisch, Y. (2018). Python for Finance. Sebastopol: O'Reilly Media Inc.
 # - Yahoo Finance
+'''

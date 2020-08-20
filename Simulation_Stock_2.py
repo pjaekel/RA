@@ -7,27 +7,36 @@ from matplotlib import style
 
 style.use('ggplot')
 
-start = dt.datetime(2017, 1, 3)
+'''start = dt.datetime(2017, 1, 3)
 end = dt.datetime(2017, 11, 20)
 
 prices = web.DataReader('AAPL', 'yahoo', start, end)['Close']
 
 
-returns = prices.pct_change()
+returns = prices.pct_change()'''
 
-last_price = prices[-1]
-print(last_price)
-print(prices)
+data = pd.read_excel('Daten_SIX_V4.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA']
+
+
+
+rets = np.log(data / data.shift(1))
+last_price = data["EXHA"].iloc[-1]
+
+
+
+
+#last_price = prices[-1]
 
 # Number of Simulations
-num_simulations = 10
+num_simulations = 3
 num_days = 30
 
 simulation_df = pd.DataFrame()
 
 for x in range(num_simulations):
     count = 0
-    daily_vol = returns.std()
+    daily_vol = rets.std()
 
     price_series = []
 
@@ -44,6 +53,8 @@ for x in range(num_simulations):
     simulation_df[x] = price_series
     print(simulation_df)
 
+
+
 fig = plt.figure()
 fig.suptitle('Monte Carlo Simulation: AAPL')
 plt.plot(simulation_df)
@@ -51,3 +62,8 @@ plt.axhline(y=last_price, color='r', linestyle='-')
 plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
+
+
+#mean = simulation_df.mean(axis=2)
+
+
