@@ -45,8 +45,8 @@ last_price10 = df10.iloc[-1]
 
 print(last_price1)
 
-num_simulations = 3
-num_days = 30
+num_simulations = 100
+num_days = 251
 
 simulation_df = pd.DataFrame()
 
@@ -83,3 +83,5 @@ print(mean)
 
 plt.plot(mean)
 plt.show()
+
+print(simulation_df.iloc[-1])

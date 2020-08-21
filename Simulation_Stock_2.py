@@ -7,36 +7,32 @@ from matplotlib import style
 
 style.use('ggplot')
 
-'''start = dt.datetime(2017, 1, 3)
+start = dt.datetime(2017, 1, 3)
 end = dt.datetime(2017, 11, 20)
 
 prices = web.DataReader('AAPL', 'yahoo', start, end)['Close']
 
 
-returns = prices.pct_change()'''
+returns = prices.pct_change()
 
-data = pd.read_excel('Daten_SIX_V4.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXHA']
-
-
-
-rets = np.log(data / data.shift(1))
-last_price = data["EXHA"].iloc[-1]
+plt.plot(prices)
+plt.show()
 
 
-'''
 
-#last_price = prices[-1]
+
+last_price = prices[-1]
+print(last_price)
 
 # Number of Simulations
 num_simulations = 3
-num_days = 30
+num_days = 252
 
 simulation_df = pd.DataFrame()
 
 for x in range(num_simulations):
     count = 0
-    daily_vol = rets.std()
+    daily_vol = returns.std()
 
     price_series = []
 
@@ -44,7 +40,7 @@ for x in range(num_simulations):
     price_series.append(price)
 
     for y in range(num_days):
-        if count == 251:
+        if count == 252:
             break
         price = price_series[count] * (1 + np.random.normal(0, daily_vol))
         price_series.append(price)
@@ -52,7 +48,7 @@ for x in range(num_simulations):
 
     simulation_df[x] = price_series
     print(simulation_df)
-
+    print(simulation_df.iloc[-1])
 
 
 fig = plt.figure()
@@ -62,6 +58,11 @@ plt.axhline(y=last_price, color='r', linestyle='-')
 plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
-'''
 
-#'''mean = simulation_df.mean(axis=2)
+
+mean = simulation_df.mean(axis=1)
+
+print(mean)
+
+plt.plot(mean)
+plt.show()
