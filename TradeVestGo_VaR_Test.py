@@ -21,12 +21,12 @@ df8 = data['EXI5']
 df9 = data['EXV6']
 df10 = data['GOLD']
 
-rets1 = np.log(df1 / df1.shift(1))
+rets1 = np.log(df2 / df2.shift(1))
 
-last_price1 = df1.iloc[-1]
+last_price1 = df2.iloc[-1]
 print(last_price1)
 
-num_simulations = 1000
+num_simulations = 10000
 num_days = 252
 
 simulation_df = pd.DataFrame()
