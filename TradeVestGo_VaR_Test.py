@@ -1,37 +1,32 @@
-import pandas_datareader as data
-import numpy as np
-import scipy.optimize as sco
-from pylab import plt
-from pandas.util.testing import assert_frame_equal
+import pandas_datareader.data as web
 import pandas as pd
+import datetime as dt
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import style
 
+style.use('ggplot')
 
+data = pd.read_excel('Daten_SIX_V4.xlsx', sheet_name='Gesamt', index_col='Datum')
+data.columns = ['EXHA', 'EL49', 'EXW1', 'EXS1', 'EXXT', 'EXX7', 'ELFC', 'EXI5', 'EXV6', 'GOLD']
 
-data = data.DataReader(['^GSPC'],
-                       'yahoo', start='1999/01/04', end='2014/09/26')['Adj Close']
-print(data)
-plt.plot(data)
-plt.show()
-
-rets = np.log(data / data.shift(1))
-
-
-
-rets.plot(figsize=(40, 16))
-plt.legend(prop={"size": 20})
-plt.xlabel('Date', size=20)
-plt.ylabel('Log Returns', size=20)
-plt.title('Figure 3', size=25)
-plt.show()
-
-df1 = data['^GSPC']
-print(df1)
+df1 = data['EXHA']
+df2 = data['EL49']
+df3 = data['EXW1']
+df4 = data['EXS1']
+df5 = data['EXXT']
+df6 = data['EXX7']
+df7 = data['ELFC']
+df8 = data['EXI5']
+df9 = data['EXV6']
+df10 = data['GOLD']
 
 rets1 = np.log(df1 / df1.shift(1))
 
 last_price1 = df1.iloc[-1]
+print(last_price1)
 
-num_simulations = 10000
+num_simulations = 1000
 num_days = 252
 
 simulation_df = pd.DataFrame()
@@ -68,18 +63,14 @@ print(simulation_df.iloc[-1])
 
 last_values_of_Simulation = simulation_df.iloc[-1]
 
-one_year_return = (last_values_of_Simulation-1982.849976)/1982.849976
+one_year_return = (last_values_of_Simulation-last_price1)/last_price1
 
 sorted_df = one_year_return.sort_values()
 
 list = sorted_df.values.tolist()
 
-my_rounded_list = [ round(elem, 2) for elem in list ]
-
-print(my_rounded_list)
-
-plt.hist(my_rounded_list, bins=32, density=True, histtype='bar', alpha=0.5)
-plt.axvline(color='r', x=np.percentile(my_rounded_list, 5))
+plt.hist(list, bins=32, density=True, histtype='bar', alpha=0.5)
+plt.axvline(color='r', x=np.percentile(list, 5))
 plt.show()
 
 x = np.percentile(list, 5)
