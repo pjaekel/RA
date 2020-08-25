@@ -109,17 +109,17 @@ model['tactical'] = [(.05,.41), (.2,.66), (0,.16)]'''
 model = pd.DataFrame(np.array([.1, .1, .1, .1, .1, .1, .1, .1, .1, .1]),
                      index= set(industry), columns = ['strategic'])
 model['tactical'] = [(0.03, 0.25), (0.03, 0.3), (0.1, 0.2), (0.1, 0.25), (0.1, 0.2), (0.03, 0.3), (0.03, 0.3), (0.03, 0.3), (0.03, 0.2), (0.03, 0.25)]
-#model['tactical'] = [(0.0, 0.1), (0.0, 0.1), (0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1)]
-#model['tactical'] = [(0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99)]
-# Set variance threshold equal to the equal-weighted variance
-# Note that I set variance as an inequality rather than equality (i.e.
-# resulting variance should be less than threshold).
+
+'''
+Set variance threshold equal to the equal-weighted variance
+Note that I set variance as an inequality rather than equality (i.e.
+resulting variance should be less than threshold).
  
-#print(opt(returns, risk_tol=port_variance([0.1] * 5, returns), model=model))
+print(opt(returns, risk_tol=port_variance([0.1] * 5, returns), model=model))
 #opt(returns, risk_tol=port_variance([0.1] * 10, returns), model=model, bounds=list(model['tactical']))
+'''
 
 weights_final = []
 
 weights_final.append(opt(returns, risk_tol=port_variance([0.085] * 10, returns), model=model, bounds=list(model['tactical'])))
 print(weights_final)
-print(returns)
