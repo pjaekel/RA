@@ -4,15 +4,12 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas_datareader as data
 import numpy as np
 import pandas as pd
-
 from pylab import plt
 
 
-data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXHA','EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 
-#data = data.DataReader(['^GSPC'],
-                       #'yahoo', start='2019/01/01', end='2019/12/31')['Adj Close']
 
 data.pct_change().mean()
 plt.plot(data)
@@ -23,14 +20,14 @@ rets.corr()
 
 rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(20, 12))
 
-symbols = ['EXHA','EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
-#symbols = ['^GSPC']
+symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 noa = len(symbols)
 
-
-weights =  [0.05191441, 0.03577533, 0.04917984, 0.01488581,0.08933691, 0.06884496, 0.04755905, 0.05613023, 0.03590928, 0.03522584, 0.49467556, 0.02056277]
-#weights =  [1]
+#weights = weights = [0.103, 0.050, 0.160, 0.118, 0.155, 0.063, 0.141, 0.052, 0.049, 0.109]
+weights = weights = [0. ,   0.00,  0.0, 0.,    0. ,   0. ,   0.03  ,  0. ,   0.97, 0.   ]
 weights /= np.sum(weights)
+
+print("SUMME DER WEIGHTS IST", np.sum(weights))
 
 print(weights)
 
@@ -45,9 +42,8 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-weights = [0.05191441, 0.03577533, 0.04917984, 0.01488581,0.08933691, 0.06884496, 0.04755905, 0.05613023, 0.03590928, 0.03522584, 0.49467556, 0.02056277]
-#weights = [1]
-weights /= np.sum(weights)
+#weights = [0.2, 0.2, 0.1, 0.1, 0.11, 0.11, 0.05, 0.05, 0.04, 0.04]
+#weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))
 prets = np.array(prets)

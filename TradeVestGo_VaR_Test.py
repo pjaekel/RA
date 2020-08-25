@@ -21,19 +21,71 @@ df8 = data['EXI5']
 df9 = data['EXV6']
 df10 = data['GOLD']
 
-rets1 = np.log(df2 / df2.shift(1))
+'''df = pd.concat([df1, df2, df3, df4, df5, df6, df7, df8, df9, df10], axis=1)
+print(df)
 
-last_price1 = df2.iloc[-1]
+rets1 = np.log(df1 / df1.shift(1))
+rets2 = np.log(df2 / df2.shift(1))
+rets3 = np.log(df3 / df3.shift(1))
+rets4 = np.log(df4 / df4.shift(1))
+rets5 = np.log(df5 / df5.shift(1))
+rets6 = np.log(df6 / df6.shift(1))
+rets7 = np.log(df7 / df7.shift(1))
+rets8 = np.log(df8 / df8.shift(1))
+rets9 = np.log(df9 / df9.shift(1))
+rets10 = np.log(df10 / df10.shift(1))
+
+
+rets = pd.concat([rets1, rets2, rets3, rets4, rets5, rets6, rets7, rets8, rets9, rets10], axis=1)
+print(rets)
+
+rets = np.log(df / df.shift(1))
+
+
+weights =  [0.1, 0.1, 0.1, 0.1 ,0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+weights /= np.sum(weights)
+
+
+def port_ret(weights):
+    return np.sum(rets.mean() * weights) * 252
+# - defining annualized portfolio return given the portfolio weights
+
+def port_vol(weights):
+    return np.sqrt(np.dot(weights.T, np.dot(rets.cov() * 252, weights)))
+
+
+prets = []
+pvols = []
+#for p in range(1):
+weights = [0.1, 0.1, 0.1, 0.1 ,0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+weights /= np.sum(weights)
+prets.append(port_ret(weights))
+pvols.append(port_vol(weights))
+prets = np.array(prets)
+pvols = np.array(pvols)
+
+print(prets)
+print(pvols)
+
+
+
+'''
+
+
+rets = np.log(df1 / df1.shift(1))
+
+
+last_price1 = df1.iloc[-1]
 print(last_price1)
 
-num_simulations = 10000
+num_simulations = 1000
 num_days = 252
 
 simulation_df = pd.DataFrame()
 
 for x in range(num_simulations):
     count = 0
-    daily_vol = rets1.std()
+    daily_vol = rets.std()
 
     price_series = []
 
@@ -58,7 +110,6 @@ plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
 
-
 print(simulation_df.iloc[-1])
 
 last_values_of_Simulation = simulation_df.iloc[-1]
@@ -69,7 +120,7 @@ sorted_df = one_year_return.sort_values()
 
 list = sorted_df.values.tolist()
 
-plt.hist(list, bins=32, density=True, histtype='bar', alpha=0.5)
+plt.hist(list, bins=32, density=True, histtype='bar', alpha=0.5, color="skyblue")
 plt.axvline(color='r', x=np.percentile(list, 5))
 plt.show()
 

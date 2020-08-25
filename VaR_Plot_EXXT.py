@@ -1,3 +1,4 @@
+
 import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -11,32 +12,18 @@ import matplotlib.pyplot as plt
 import scipy
 import seaborn as sns
 
-data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 
-plt.plot(data)
-plt.show()
+data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'GesamtEXXT', index_col ='Datum')
+data.columns = ['EXXT']
 
-#data = data.DataReader(['VOW.DE'],
-                      # 'yahoo', start='2019/08/19', end='2020/08/17')['Adj Close']
+symbols = ['EXXT']
 
-
-#print(data)
-symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
-#symbols = ['VOW.DE']
-
-''' SA-D, SA-D, UA, A-EU(600), A-EU(50), A-EU-DAX, A-USA, A-Japan, Financial(600), Financial(50), IMMO-EU	RS '''
 
 initial_investment = 100
 rets = np.log(data / data.shift(1))
 print("rets", rets)
 
 
-#noa = len(symbols)
-#weights = np.random.random(noa)
-#weights = [0.0881, 0.0743, 0.0920, 0.0328, 0.1065, 0.1560, 0.0427, 0.0944, 0.1074, 0.0043, 0.0893, 0.1122]
-#weights = [1]
-#weights /= np.sum(weights)
 
 def port_ret(weights):
     return np.sum(rets.mean() * weights) * 252
@@ -50,7 +37,7 @@ prets = []
 pvols = []
 for p in range(1):
     #weights = np.random.random(noa)
-    weights = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+    weights = [1]
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
@@ -79,7 +66,7 @@ plt.show()
 #weights = 1
 
 
-sorted_0 = rets.sort_values(by=['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6'], ascending=True)
+sorted_0 = rets.sort_values(by=['EXXT'], ascending=True)
 sorted_1 = sorted_0.dropna()
 sorted_list = sorted_1.values.tolist()
 

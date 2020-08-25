@@ -4,9 +4,11 @@ import scipy.optimize as sco
 from pylab import plt
 from pandas.util.testing import assert_frame_equal
 import pandas as pd
+from scipy.stats import norm
 
-data = pd.read_excel('Daten_SIX_V3.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
-data.columns = ['EXHA',	'EL49',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'ELFC', 'EXI5', 'EXV6']
+
+data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
+data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 
 print(data)
 data.plot()
@@ -15,7 +17,7 @@ plt.title('Stock Prices over Time')
 plt.xlabel('Date')
 plt.ylabel('Stock Price')
 plt.show()
-'''
+
 data.pct_change().mean().plot(kind='bar', figsize=(20, 12), color=['silver', 'green', 'blue'])
 plt.xlabel('Stocks', size=20)
 plt.ylabel('Mean of Returns', size=20)
@@ -51,20 +53,15 @@ plt.title('Figure 4', size=25)
 # #  Monte Carlo Simulation
 
 
-symbols = ['EXHA',	'EXVM',	'EL49',	'EXSA',	'EXW1', 'EXS1', 'EXXT', 'EXX7', 'EXV1', 'ELFC', 'EXI5', 'EXV6']
+symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 
-# - using 30 financial instruments for portfolio composition.
 
 noa = len(symbols)
 
-# - Defining the number of financial instruments
-# - len() function returns the number of items in an object, here 3
 
+weights = np.random.random(noa)
+weights /= np.sum(weights)
 
-#weights = np.random.random(noa)
-#weights /= np.sum(weights)
-
-#print(weights)
 
 
 # - generates three uniformly distributed random numbers betweeen 0 and 1
@@ -78,19 +75,39 @@ def port_vol(weights):
     return np.sqrt(np.dot(weights.T, np.dot(rets.cov() * 252, weights)))
 # - defining annualized portfolio volatility given the portfolio weights
 
+pweights = []
 prets = []
 pvols = []
-for p in range(1):
+for p in range(1000):
     weights = np.random.random(noa)
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
-    print("WWWWWWWWW", weights)
-prets = np.array(prets)
-pvols = np.array(pvols)
+    pweights.append(weights)
+prets = np.array(prets).round(2)
+pvols = np.array(pvols).round(2)
+pweights = np.array(pweights).round(2)
+vols = pvols.tolist()
+#vols_rounded = [ '%.3f' % elem for elem in vols]
+
+position = []
+for i, j in enumerate(vols):
+    if j == 0.12:
+        #print('POSITION',i)
+        position.append(i)
+
+position = np.array(position)
+print(min(vols))
+print(max(vols))
+print("POOOOOSITIONS", position)
+
+print(vols)
 
 print("RRRRRRRRRRR", prets)
-print("PPPPPPPPPPP", pvols)
+print("VVVVVVVVVVV", pvols)
+print("WWWWWWWWW", pweights)
+
+
 # Monte Carlo simulation of portfolio weights:
 # With the for loop a given number of portfolios (50000) with different weights is created. We then store the
 # portfolio returns and the portfolio volatilities into the following arrays:
@@ -236,4 +253,3 @@ plt.show()
 
 # - Hilpisch, Y. (2018). Python for Finance. Sebastopol: O'Reilly Media Inc.
 # - Yahoo Finance
-'''
