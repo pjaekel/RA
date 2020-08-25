@@ -3,6 +3,8 @@ from bokeh.plotting import figure
 from bokeh.io import show, output_file
 from bokeh.models import HoverTool, ColumnDataSource
 from math import pi
+from bokeh.embed import file_html
+from bokeh.resources import CDN
 
 percents = [0, 13.5/100, 16.5/100, 39.4/100, 49.5/100, 59.9/100, 62.9/100, 65.9/100, 68.9/100, 97/100, 3/100, 1]
 category = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
@@ -48,3 +50,6 @@ p.xgrid.visible = False
 
 output_file('pie.html')
 show(p)
+
+html = file_html(p, CDN, "Kreisdiagramm")
+print(html)
