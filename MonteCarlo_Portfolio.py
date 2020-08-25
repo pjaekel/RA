@@ -13,7 +13,7 @@ num_simulations = 2000
 num_days = 252
 simulation_df_1 = pd.DataFrame()
 last_price = 10000
-rets1 = 0.05816299
+rets1 = 0.02816299
 
 for x in range(num_simulations):
     count = 0
@@ -34,7 +34,7 @@ for x in range(num_simulations):
     simulation_df_1[x] = price_series
 
 fig = plt.figure()
-fig.suptitle('Monte Carlo Simulation 25.02.2020')
+fig.suptitle('Monte Carlo Simulation')
 plt.plot(simulation_df_1)
 #plt.axhline(y=last_price, color='r', linestyle='-')
 plt.xlabel('Trading Days')

@@ -24,7 +24,7 @@ symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT
 noa = len(symbols)
 
 #weights = [0.103, 0.050, 0.160, 0.118, 0.155, 0.063, 0.141, 0.052, 0.049, 0.109]
-weights =[0.135, 0.03 , 0.234, 0.1  , 0.1  , 0.03 , 0.03 , 0.03 , 0.281, 0.03]
+weights =[0.2, 0.2 , 0.105, 0.105  , 0.1  , 0.07 , 0.06 , 0.06 , 0.05, 0.05]
 weights /= np.sum(weights)
 
 print("SUMME DER WEIGHTS IST", np.sum(weights))
@@ -42,8 +42,8 @@ def port_vol(weights):
 prets = []
 pvols = []
 #for p in range(1):
-#weights = [0.2, 0.2, 0.1, 0.1, 0.11, 0.11, 0.05, 0.05, 0.04, 0.04]
-#weights /= np.sum(weights)
+weights =[0.2, 0.2 , 0.105, 0.105  , 0.1  , 0.07 , 0.06 , 0.06 , 0.05, 0.05]
+weights /= np.sum(weights)
 prets.append(port_ret(weights))
 pvols.append(port_vol(weights))
 prets = np.array(prets)

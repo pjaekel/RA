@@ -17,7 +17,7 @@ source = ColumnDataSource(
     data=dict(
         x=[0 for x in percents],
         y=[0 for x in percents],
-        radius = [0.5 for x in percents],
+        radius = [0.65 for x in percents],
         percents=percents,
         category= category,
         starts=starts,
@@ -29,7 +29,7 @@ source = ColumnDataSource(
 
 TOOLS = "hover"
 
-p = figure(plot_width = 500, plot_height = 500, x_axis_label = None, y_axis_label = None,
+p = figure(plot_width = 600, plot_height = 500, x_axis_label = None, y_axis_label = None,
 title = 'Portfolio Distribution', tools = TOOLS)
 
 p.title.align = 'center'
