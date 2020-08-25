@@ -8,14 +8,6 @@ from scipy.optimize import minimize
 # at daily frequency over a year.  Note that these will be in decimal
 # rather than numeral form. (i.e. 0.01 denotes a 1% return)
 
-'''dates = pd.bdate_range(start='1/1/2000', end='12/31/2000')
-industry = ['industry'] * 2 + ['utility'] * 2 + ['consumer']
-symbols = list('ABCDE')
-zipped = list(zip(industry, symbols))
-cols = pd.MultiIndex.from_tuples(zipped)
-returns = pd.DataFrame(npr.randn(len(dates), len(cols)), index=dates, columns=cols)
-returns /= 100 + 3e-3 #drift term'''
-
 
 data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
 data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
@@ -116,7 +108,7 @@ model['tactical'] = [(.05,.41), (.2,.66), (0,.16)]'''
 
 model = pd.DataFrame(np.array([.1, .1, .1, .1, .1, .1, .1, .1, .1, .1]),
                      index= set(industry), columns = ['strategic'])
-model['tactical'] = [(0.03, 0.25), (0.03, 0.3), (0.1, 0.25), (0.1, 0.25), (0.1, 0.2), (0.03, 0.3), (0.03, 0.3), (0.03, 0.3), (0.03, 0.4), (0.03, 0.25)]
+model['tactical'] = [(0.03, 0.25), (0.03, 0.3), (0.1, 0.2), (0.1, 0.25), (0.1, 0.2), (0.03, 0.3), (0.03, 0.3), (0.03, 0.3), (0.03, 0.2), (0.03, 0.25)]
 #model['tactical'] = [(0.0, 0.1), (0.0, 0.1), (0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1),(0.0, 0.1), (0.0, 0.1)]
 #model['tactical'] = [(0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99)]
 # Set variance threshold equal to the equal-weighted variance
@@ -130,3 +122,4 @@ weights_final = []
 
 weights_final.append(opt(returns, risk_tol=port_variance([0.085] * 10, returns), model=model, bounds=list(model['tactical'])))
 print(weights_final)
+print(returns)
