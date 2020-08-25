@@ -58,8 +58,7 @@ symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT
 
 noa = len(symbols)
 
-
-weights = np.random.random(noa)
+weights = [0.12, 0.03, 0.25, 0.1 , 0.1 , 0.03, 0.06, 0.03, 0.25, 0.03]
 weights /= np.sum(weights)
 
 
@@ -75,18 +74,18 @@ def port_vol(weights):
     return np.sqrt(np.dot(weights.T, np.dot(rets.cov() * 252, weights)))
 # - defining annualized portfolio volatility given the portfolio weights
 
-pweights = []
+#pweights = []
 prets = []
 pvols = []
-for p in range(1000):
-    weights = np.random.random(noa)
+for p in range(1):
+    weights = [0.12, 0.03, 0.25, 0.1 , 0.1 , 0.03, 0.06, 0.03, 0.25, 0.03]
     weights /= np.sum(weights)
     prets.append(port_ret(weights))
     pvols.append(port_vol(weights))
-    pweights.append(weights)
+    #pweights.append(weights)
 prets = np.array(prets).round(2)
-pvols = np.array(pvols).round(2)
-pweights = np.array(pweights).round(2)
+pvols = np.array(pvols).round(3)
+#pweights = np.array(pweights).round(2)
 vols = pvols.tolist()
 #vols_rounded = [ '%.3f' % elem for elem in vols]
 
@@ -105,7 +104,7 @@ print(vols)
 
 print("RRRRRRRRRRR", prets)
 print("VVVVVVVVVVV", pvols)
-print("WWWWWWWWW", pweights)
+#print("WWWWWWWWW", pweights)
 
 
 # Monte Carlo simulation of portfolio weights:

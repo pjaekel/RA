@@ -23,8 +23,8 @@ rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(2
 symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 noa = len(symbols)
 
-#weights = weights = [0.103, 0.050, 0.160, 0.118, 0.155, 0.063, 0.141, 0.052, 0.049, 0.109]
-weights = weights = [0. ,   0.00,  0.0, 0.,    0. ,   0. ,   0.03  ,  0. ,   0.97, 0.   ]
+#weights = [0.103, 0.050, 0.160, 0.118, 0.155, 0.063, 0.141, 0.052, 0.049, 0.109]
+weights =[0.135, 0.03 , 0.234, 0.1  , 0.1  , 0.03 , 0.03 , 0.03 , 0.281, 0.03]
 weights /= np.sum(weights)
 
 print("SUMME DER WEIGHTS IST", np.sum(weights))
