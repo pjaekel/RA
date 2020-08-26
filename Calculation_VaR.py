@@ -23,7 +23,6 @@ rets.cumsum().apply(np.exp).resample('1w', label='right').last().plot(figsize=(2
 symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 noa = len(symbols)
 
-#weights = [0.103, 0.050, 0.160, 0.118, 0.155, 0.063, 0.141, 0.052, 0.049, 0.109]
 weights =[0.2, 0.2 , 0.105, 0.105  , 0.1  , 0.07 , 0.06 , 0.06 , 0.05, 0.05]
 weights /= np.sum(weights)
 
