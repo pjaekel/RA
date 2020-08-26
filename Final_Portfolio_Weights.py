@@ -11,16 +11,12 @@ from scipy.optimize import minimize
 
 data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
 data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
-
-
-
 returns = np.log(data / data.shift(1))
 
 symbols = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
 industry = ['EXHA'] + ['EL49'] + ['Gold'] + ['ELFC'] + ['EXI5'] + ['EXW1'] + ['EXX7'] + ['EXS1'] + ['EXXT']  + ['EXV6']
 
 annulized_return = (1 + returns.mean()) ** 252 - 1
-
 
 def logrels(returns):
     """Log of return relatives, ln(1+r), for a given DataFrame rets."""

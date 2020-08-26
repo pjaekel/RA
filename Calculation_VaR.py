@@ -6,10 +6,8 @@ import numpy as np
 import pandas as pd
 from pylab import plt
 
-
 data = pd.read_excel('Daten_SIX_V5.xlsx', sheet_name = 'Gesamt', index_col ='Datum')
 data.columns = ['EXHA',	'EL49',	'Gold', 'ELFC', 'EXI5', 'EXW1', 'EXX7',	'EXS1', 'EXXT', 'EXV6']
-
 
 data.pct_change().mean()
 plt.plot(data)

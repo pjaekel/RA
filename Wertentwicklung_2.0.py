@@ -14,7 +14,6 @@ from statistics import mean
 import numpy.random as npr
 import scipy.stats as scs
 
-#Code
 initial_value = 20000
 log_return = 0.06367934
 t = 30
