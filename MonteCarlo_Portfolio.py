@@ -1,12 +1,13 @@
-import pandas_datareader.data as web
 import pandas as pd
-import datetime as dt
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
-import seaborn as sns
 
 style.use('ggplot')
+
+#the following lines of code generate mote carlo simulations with the parameters of the overall portfolio mix
+
+
 
 
 num_simulations = 2000
@@ -36,7 +37,6 @@ for x in range(num_simulations):
 fig = plt.figure()
 fig.suptitle('Monte Carlo Simulation')
 plt.plot(simulation_df_1)
-#plt.axhline(y=last_price, color='r', linestyle='-')
 plt.xlabel('Trading Days')
 plt.ylabel('Portfolio Value')
 plt.ylim(7500, 12500)
@@ -52,7 +52,6 @@ list1 = sorted_df1.values.tolist()
 
 plt.hist(list1, bins=32, density=True, histtype='bar', alpha=0.5)
 plt.axvline(color='r', x=np.percentile(list1, 5))
-
 
 x1 = np.percentile(list1, 5)
 

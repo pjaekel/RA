@@ -55,10 +55,13 @@ portfolio_vol = pvols.item()
 print(prets)
 print(portfolio_vol)
 
+
+#define variables for Value at risk
 t = 252
 confidence_interval = 1.64
 portfolio_value = 100
 
+#formular Value at Risk
 var_portfolio = (portfolio_value*confidence_interval)*(portfolio_vol*np.sqrt(t/252))
 print(var_portfolio)
 

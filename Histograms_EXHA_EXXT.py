@@ -14,6 +14,9 @@ data.columns = ['EXHA', 'EL49', 'EXW1', 'EXS1', 'EXXT', 'EXX7', 'ELFC', 'EXI5', 
 
 plt.plot(data)
 
+
+#the following lines of code create a dataframe containing the historical data of each ETF
+
 df1 = data['EXHA']
 df2 = data['EL49']
 df3 = data['EXW1']
@@ -26,7 +29,7 @@ df9 = data['EXV6']
 df10 = data['GOLD']
 
 df = pd.concat([df1, df2, df3, df4, df5, df6, df7, df8, df9, df10], axis=1)
-#print(df)
+
 
 rets1 = np.log(df1 / df1.shift(1))
 rets2 = np.log(df2 / df2.shift(1))
@@ -40,7 +43,7 @@ rets9 = np.log(df9 / df9.shift(1))
 rets10 = np.log(df10 / df10.shift(1))
 
 rets = pd.concat([rets1, rets2, rets3, rets4, rets5, rets6, rets7, rets8, rets9, rets10], axis=1)
-#print(rets)
+
 
 last_price1 = df1.iloc[-1]
 last_price2 = df2.iloc[-1]
@@ -56,6 +59,9 @@ last_price10 = df10.iloc[-1]
 num_simulations = 5000
 num_days = 252
 simulation_df_1 = pd.DataFrame()
+
+#the following lines generate monte carlo simulations, which is the basis for the value and risk
+#the returns of the paths are calculated and the value of risk for each is marked in an histogram
 
 for x in range(num_simulations):
     count = 0
@@ -82,7 +88,6 @@ plt.axhline(y=last_price1, color='r', linestyle='-')
 plt.xlabel('Day')
 plt.ylabel('Price')
 
-#print(simulation_df.iloc[-1])
 
 last_values_of_Simulation = simulation_df_1.iloc[-1]
 
@@ -97,8 +102,6 @@ x1 = np.percentile(list1, 5)
 plt.figure(figsize=(10,6))
 plt.hist(list1, label=['EXHA'], bins=42, align='mid', rwidth=1, color='#122235')
 plt.axvline(ymin=0, ymax=0.5, color='r', x=np.percentile(list1, 5))
-#plt.text(np.percentile(list1, 5), 1, ('VaR of', x1.round(4)),  color='w')
-#plt.legend(loc=0)
 plt.xlabel('Returns')
 plt.ylabel('Number of Returns')
 plt.title('EXHA')
@@ -143,8 +146,6 @@ x5 = np.percentile(list5, 5)
 plt.figure(figsize=(10,6))
 plt.hist(list5, label=['EXXT'], bins=42, align='mid', rwidth=1, color='#122235')
 plt.axvline( ymin=0, ymax=0.5, color='r', x=np.percentile(list5, 5))
-#plt.text(np.percentile(list5, 5), 1, ('VaR of', x5.round(4)),  color='w')
-#plt.legend(loc=0)
 plt.xlabel('Returns')
 plt.ylabel('Number of Returns')
 plt.title('EXXT')
